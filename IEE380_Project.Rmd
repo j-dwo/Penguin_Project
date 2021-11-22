@@ -1,0 +1,105 @@
+---
+title: 'IEE380 Final Project: Weights of Penguins on Biscou Island'
+author: "Jacqueline Dworaczyk, Professor Clough, IEE380 Fall 2021"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: article
+output:
+  bookdown::word_document2:
+    toc: false
+csl: vancouver.csl
+editor_options: 
+  chunk_output_type: console
+nocite: "@*"
+---
+
+```{r setup, include=FALSE, echo=FALSE, cache.lazy=FALSE}
+
+# Setting options for the rest of the document
+knitr::opts_chunk$set(warning=FALSE)
+
+# Rounding rules
+options(digits = 2)
+
+# Loads Packages
+if (require('tidyverse')==FALSE){
+  install.packages('tidyverse',
+                    repos="https://cran.rstudio.com");
+  require(tidyverse);
+}
+
+if (require('vcd')==FALSE) {
+  install.packages('vcd',
+                   repos="https://cran.rstudio.com");
+  require(vcd);
+}
+
+# load required packages
+library(here)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r setup2, include=FALSE, echo=FALSE, cache.lazy=FALSE}
+# Data came from:
+# https://github.com/allisonhorst/palmerpenguins/blob/master/README.md
+if (require('palmerpenguins')==FALSE) {
+  install.packages('palmerpenguins',
+                   repos="https://cran.rstudio.com");
+  require(palmerpenguins);
+}
+
+
+# get penguins data set
+penguin_dat <- penguins
+
+# get all the penguins from Biscoe island (n = 163)
+gunters <- penguin_dat %>% 
+  drop_na() %>% 
+  filter(island == "Biscoe") %>% 
+  select(-bill_length_mm, 
+         -bill_depth_mm,
+         -flipper_length_mm,
+         -year)
+
+# drop first 13 rows (so that n = 150)
+gunters <- gunters[-c(1,2,3,4,5,6,7,8,9,10,11,12,13),]
+```
+
+#
+# Project Objectives
+
+The use of long distance care is gaining popularity for everyday use [@duffy2018] as the technoloic barriers continue to be removed. The use of telemedicine may also help adress the chalanges of providing care during an  infectious disease epidemic. One of the most critical aspects is the ability to effectivilely triage patients before they seek care in an emergancy department or urgent care ("forward triage"). even outside the setting of the major disaster or epidemic  There a number of methods to collect this information from the patients 
+
+In this analyses we consider the diffrernce in in symptom data recorded by patients using a self guided questionaire compared to symptom data recoded by a clinician. We consider the agreement between the two sources of data as well as differnce in accuracy when appling a clinical diecions rule.  use in a diagnosistic score. 
+
+# Data Description
+
+### Data
+
+Data were collected from a university health center from December 2016 through February 2017. Patients with a respiratory complaint are required to fill out a symptoms questionnaire before their visit. At the time of the visit a clinician was required to provided responses for respiratory related signs and symptoms. Details of the study design and data collection have been published previously [@dale2019]. For this analysis 19 symptom pairs accessed by both the patient and clinician were included. 
+
+### Methodology 
+
+All analysis were completed in R version 4.0.0 using the vcd package. We evaluated agreement between patient and clinician reported symptoms using an unweighted Cohen's kappa statistic [@cohen1960]. Qualitative assessment of the kappa values are based on previously published guidelines for use in medical settings [@mchugh2012].   
+
+```{r Data, echo=FALSE, results='asis'}
+knitr::kable(gunters, row.names=TRUE, caption = "")
+```
+
+## Histogram, Mean and Standard Deviation of X
+
+### Histogram
+
+### Mean and Standard Deviation
+
+## Histogram, Mean and Standard Deviation of X-bar
+
+### Central Limit Theorem
+
+# References
+
+
+
+
+
